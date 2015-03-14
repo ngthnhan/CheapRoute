@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
 
     private String[] days = {"1","2","3","4","5","6","7","8","9"};
 
-
+    DatePicker start_date, end_date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
         setContentView(R.layout.activity_details_input_form);
         System.out.println(days.length);
 
-
-
+        start_date = (DatePicker) findViewById()
         final ArrayAdapter<SkyscannerPlaceDetail> adapter_1 = new ArrayAdapter<SkyscannerPlaceDetail>(this,
                 android.R.layout.simple_dropdown_item_1line);
         AutoCompleteTextView cityView1 = (AutoCompleteTextView)
