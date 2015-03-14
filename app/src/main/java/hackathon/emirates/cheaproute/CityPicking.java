@@ -56,7 +56,7 @@ public class CityPicking extends ActionBarActivity {
                                             params[0],
                                             AppSettings.Skyscanner_Key);
 
-                            System.out.println(url_root);
+
                             ObjectMapper mapper = new ObjectMapper();
                             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
                             SkyscannerPlaces places = null;
@@ -77,7 +77,7 @@ public class CityPicking extends ActionBarActivity {
                                 adapter.clear();
                                 for (SkyscannerPlaceDetail place : places) {
                                     adapter.add(place);
-                                    System.out.println(place);
+
                                 }
                             }
                             adapter.notifyDataSetChanged();
