@@ -16,11 +16,21 @@ import android.widget.TextView;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.client.methods.HttpPost;
 
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,7 +39,7 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
     private static final String API_KEY = "ah808014181908229612229724880308";
-    private static final String ROOT_URL = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0";
+    private static final String ROOT_URL = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0?";
     private static final String Currency = "GBP";
     private static final String Country = "GB";
     private static final String Locale = "en-GB";
@@ -73,6 +83,7 @@ public class MainActivity extends ActionBarActivity {
         // Now call the API
 
         new CallAPI_1().execute();
+        System.out.println("Get in function");
     }
 
     public void callAPI_2(View view) {
@@ -84,48 +95,54 @@ public class MainActivity extends ActionBarActivity {
 
     private class CallAPI_1 extends AsyncTask<String, Void, String> {
 
-
-
         @Override
         protected String doInBackground(String... params) {
+            System.out.println("Get in doInBackground");
             String resultToDisplay = "";
-            List<NameValuePair> queryParams = new ArrayList<>();
-            queryParams.add(new BasicNameValuePair("apiKey", API_KEY));
-            queryParams.add(new BasicNameValuePair("country", Country));
-            queryParams.add(new BasicNameValuePair("currency", Currency));
-            queryParams.add(new BasicNameValuePair("locale", Locale));
-            queryParams.add(new BasicNameValuePair("originplace", OriginPlace));
-            queryParams.add(new BasicNameValuePair("destinationplace", DestinationPlace));
-            queryParams.add(new BasicNameValuePair("outbounddate", OutboundDate));
-            queryParams.add(new BasicNameValuePair("inbounddate", InboundDate));
-            queryParams.add(new BasicNameValuePair("adults", Adult.toString()));
+            String downloadedString= null;
 
-            String urlString = ROOT_URL + URLEncodedUtils.format(queryParams, "UTF-8");
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(ROOT_URL);
             try {
-                URL url = new URL(urlString);
+                // Add your data
+                List<NameValuePair> queryParams = new ArrayList<>(9);
+                queryParams.add(new BasicNameValuePair("apiKey", API_KEY));
+                queryParams.add(new BasicNameValuePair("country", Country));
+                queryParams.add(new BasicNameValuePair("currency", Currency));
+                queryParams.add(new BasicNameValuePair("locale", Locale));
+                queryParams.add(new BasicNameValuePair("originplace", OriginPlace));
+                queryParams.add(new BasicNameValuePair("destinationplace", DestinationPlace));
+                queryParams.add(new BasicNameValuePair("outbounddate", OutboundDate));
+                queryParams.add(new BasicNameValuePair("inbounddate", InboundDate));
+                queryParams.add(new BasicNameValuePair("adults", Adult.toString()));
+                httpPost.setEntity(new UrlEncodedFormEntity(queryParams));
 
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-                SkyscannerFlights response = mapper.readValue(url, SkyscannerFlights.class);
+                HttpResponse response = httpClient.execute(httpPost);
 
-                switch (response.getStatus()) {
-                    case "OK":
-                        System.out.println("Status is okay" + response.getStatus());
-                        break;
-                    default:
-                        System.out.println("Status is not okay" + response.getStatus());
-                }
-            } catch (MalformedURLException e) {
+                InputStream in = response.getEntity().getContent();
+                StringBuilder stringbuilder = new StringBuilder();
+                BufferedReader bfrd = new BufferedReader(new InputStreamReader(in),1024);
+                String line;
+                while((line = bfrd.readLine()) != null)
+                    stringbuilder.append(line);
+
+                downloadedString = stringbuilder.toString();
+
+            } catch (ClientProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.out.println("downloadedString "+downloadedString);
 
-            return resultToDisplay;
+            return downloadedString;
+
         }
 
         @Override
         protected void onPostExecute(String result) {
+            System.out.println("Get in onPostExecute");
             TextView resultView = (TextView) findViewById(R.id.responseText);
             resultView.setText(result);
         }
