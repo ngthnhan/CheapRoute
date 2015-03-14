@@ -34,7 +34,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
     private String[] days = {"1","2","3","4","5","6","7","8","9"};
 
     DatePicker start_date, end_date;
-    final Button button = (Button) findViewById(R.id.process_btn);
+    Button button ;
     String[] duration = new String[4];
     CityLeg[] cityLeg = new CityLeg[4];
     SkyscannerPlaceDetail[] skyscannerPlaceDetail = new SkyscannerPlaceDetail[4];
@@ -45,7 +45,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_input_form);
         System.out.println(days.length);
-
+        button =(Button) findViewById(R.id.process_btn);
         start_date = (DatePicker) findViewById(R.id.startDate);
         end_date = (DatePicker) findViewById(R.id.endDate);
         myTrip = new Trip();
@@ -117,6 +117,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                skyscannerPlaceDetail[0] = adapter_1.getItem(position);
                 Toast.makeText(DetailsInputForm.this,
                         adapter_1.getItem(position).toString(),
                         Toast.LENGTH_SHORT).show();
@@ -184,6 +185,17 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
                 }
             }
         });
+        cityView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                skyscannerPlaceDetail[1] = adapter_2.getItem(position);
+                Toast.makeText(DetailsInputForm.this,
+                        adapter_2.getItem(position).toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
         final ArrayAdapter<SkyscannerPlaceDetail> adapter_3 = new ArrayAdapter<SkyscannerPlaceDetail>(this,
                 android.R.layout.simple_dropdown_item_1line);
@@ -245,6 +257,17 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
                         }
                     }.execute(s.toString());
                 }
+            }
+        });
+        cityView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                skyscannerPlaceDetail[2] = adapter_3.getItem(position);
+                Toast.makeText(DetailsInputForm.this,
+                        adapter_3.getItem(position).toString(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -310,6 +333,17 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
                 }
             }
         });
+        cityView4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                skyscannerPlaceDetail[3] = adapter_4.getItem(position);
+                Toast.makeText(DetailsInputForm.this,
+                        adapter_4.getItem(position).toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         days1 = (Spinner) findViewById(R.id.days1);
@@ -367,7 +401,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
         return super.onOptionsItemSelected(item);
     }
 
-    public void process(){
+    public void process(View view){
 
         //get duration values
         Spinner days1=(Spinner) findViewById(R.id.days1);
@@ -389,9 +423,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
         }
 
         //set cityLeg
-        myTrip.setCityLeg(cityLeg);
-
-
+        myTrip.setCityLegs(cityLeg);
     }
 
 }

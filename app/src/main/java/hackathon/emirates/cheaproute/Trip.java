@@ -9,6 +9,9 @@ public class Trip {
     private String home;
     private CityLeg[] cityLegs;
 
+    public Trip(){
+
+    }
     public Trip(String startDate, String endDate, String home, CityLeg[] cityLegs) {
         this.startDate = startDate;
         this.endDate = endDate;
