@@ -14,9 +14,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +34,11 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
     private String[] days = {"1","2","3","4","5","6","7","8","9"};
 
     DatePicker start_date, end_date;
+    final Button button = (Button) findViewById(R.id.process_btn);
+    String[] duration = new String[4];
+    CityLeg[] cityLeg = new CityLeg[4];
+    SkyscannerPlaceDetail[] skyscannerPlaceDetail = new SkyscannerPlaceDetail[4];
+    Trip myTrip;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +46,10 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
         setContentView(R.layout.activity_details_input_form);
         System.out.println(days.length);
 
-        start_date = (DatePicker) findViewById()
+        start_date = (DatePicker) findViewById(R.id.startDate);
+        end_date = (DatePicker) findViewById(R.id.endDate);
+        myTrip = new Trip();
+
         final ArrayAdapter<SkyscannerPlaceDetail> adapter_1 = new ArrayAdapter<SkyscannerPlaceDetail>(this,
                 android.R.layout.simple_dropdown_item_1line);
         AutoCompleteTextView cityView1 = (AutoCompleteTextView)
@@ -100,6 +110,16 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
                         }
                     }.execute(s.toString());
                 }
+            }
+        });
+        cityView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(DetailsInputForm.this,
+                        adapter_1.getItem(position).toString(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -316,6 +336,7 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
             long id) {
         Spinner spin = (Spinner) parent;
         spin.setSelection(position);
+
     }
 
     @Override
@@ -345,4 +366,32 @@ public class DetailsInputForm extends ActionBarActivity implements OnItemSelecte
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void process(){
+
+        //get duration values
+        Spinner days1=(Spinner) findViewById(R.id.days1);
+        duration[0] = days1.getSelectedItem().toString();
+        Spinner days2=(Spinner) findViewById(R.id.days2);
+        duration[1] = days1.getSelectedItem().toString();
+        Spinner days3=(Spinner) findViewById(R.id.days3);
+        duration[2] = days1.getSelectedItem().toString();
+        Spinner days4=(Spinner) findViewById(R.id.days4);
+        duration[3] = days1.getSelectedItem().toString();
+
+        //set start and end date
+
+        myTrip.setStartDate(String.format("%04d-%02d-%02d",start_date.getYear(),start_date.getMonth(),start_date.getDayOfMonth()));
+        myTrip.setEndDate(String.format("%04d-%02d-%02d", end_date.getYear(), end_date.getMonth(), end_date.getDayOfMonth()));
+
+        for(int i = 0; i < 4; i++){
+            cityLeg[i] = new CityLeg(skyscannerPlaceDetail[i], duration[i]);
+        }
+
+        //set cityLeg
+        myTrip.setCityLeg(cityLeg);
+
+
+    }
+
 }
