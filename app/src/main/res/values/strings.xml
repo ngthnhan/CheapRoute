@@ -7,5 +7,6 @@
     <string name="title_activity_welcome_screen">WelcomeScreen</string>
     <string name="welcome">Get the cheapest route to your destination</string>
     <string name="title_activity_details_input_form">DetailsInputForm</string>
+    <string name="startDate">Start Date</string>
 
 </resources>

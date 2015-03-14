@@ -40,7 +40,7 @@ public class WelcomeScreen extends ActionBarActivity {
     }
 
     public void planTrip(View view){
-        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        Intent mainActivityIntent = new Intent(this, DetailsInputForm.class);
         startActivity(mainActivityIntent);
 
     }
