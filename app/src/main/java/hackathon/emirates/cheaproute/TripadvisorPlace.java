@@ -1,54 +1,36 @@
 package hackathon.emirates.cheaproute;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * Created by nhan on 3/14/15.
  https://developer-tripadvisor.com/content-api/documentation/location-attractions/
  */
 public class TripadvisorPlace {
-    private String see_all_photos;
-    private TripadvisorAttractionType[] attraction_types;
-    private String web_url;
-    private int percent_recommended;
-    private String location_string;
-    private String location_id;
-    private String write_review;
-//    private String api_detail_url;
-    private TripadvisorAddressDetail address_obj;
-    private String wikipedia_info;
-    private TripadvisorCategoryDetail category;
-    private TripadvisorAwardDetail[] awards;
-    private String num_reviews;
-    private TripadvisorSubcategoryDetail[] subcategory;
-    private String rating_image_url;
-    private String name;
-    private String longitude;
-    private String latitude;
-    private String rating;
-    private TripadvisorAncestorDetail[] ancestors;
-    private TripadvisorRankingDetail ranking_data;
+    public String see_all_photos;
+    public TripadvisorAttractionType[] attraction_types;
+    public String web_url;
+    public int percent_recommended;
+    public String location_string;
+    public String location_id;
+    public String write_review;
+//    public String api_detail_url;
+    public TripadvisorAddressDetail address_obj;
+    public String wikipedia_info;
+    public TripadvisorCategoryDetail category;
+    public TripadvisorAwardDetail[] awards;
+    public String num_reviews;
+    public TripadvisorSubcategoryDetail[] subcategory;
+    public String rating_image_url;
+    public String name;
+    public String longitude;
+    public String latitude;
+    public String rating;
+    public TripadvisorAncestorDetail[] ancestors;
+    public TripadvisorRankingDetail ranking_data;
 
 
-    public TripadvisorPlace(String see_all_photos, TripadvisorAttractionType[] attraction_types, String web_url, int percent_recommended, String location_string, String location_id, String write_review, TripadvisorAddressDetail address_obj, String wikipedia_info, TripadvisorCategoryDetail category, TripadvisorAwardDetail[] awards, String num_reviews, TripadvisorSubcategoryDetail[] subcategory, String rating_image_url, String name, String longitude, String latitude, String rating, TripadvisorAncestorDetail[] ancestors, TripadvisorRankingDetail ranking_data) {
-        this.see_all_photos = see_all_photos;
-        this.attraction_types = attraction_types;
-        this.web_url = web_url;
-        this.percent_recommended = percent_recommended;
-        this.location_string = location_string;
-        this.location_id = location_id;
-        this.write_review = write_review;
-        this.address_obj = address_obj;
-        this.wikipedia_info = wikipedia_info;
-        this.category = category;
-        this.awards = awards;
-        this.num_reviews = num_reviews;
-        this.subcategory = subcategory;
-        this.rating_image_url = rating_image_url;
-        this.name = name;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.rating = rating;
-        this.ancestors = ancestors;
-        this.ranking_data = ranking_data;
+    public TripadvisorPlace() {
     }
 
     public TripadvisorSubcategoryDetail[] getSubcategory() {

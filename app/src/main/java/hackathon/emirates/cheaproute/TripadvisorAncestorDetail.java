@@ -11,16 +11,12 @@ package hackathon.emirates.cheaproute;
  }
  */
 public class TripadvisorAncestorDetail {
-    private String abbrv;
-    private String level;
-    private String name;
-    private String location_id;
+    public String abbrv;
+    public String level;
+    public String name;
+    public String location_id;
 
-    public TripadvisorAncestorDetail(String abbrv, String level, String name, String location_id) {
-        this.abbrv = abbrv;
-        this.level = level;
-        this.name = name;
-        this.location_id = location_id;
+    public TripadvisorAncestorDetail() {
     }
 
     public String getAbbrv() {

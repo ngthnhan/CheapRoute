@@ -10,12 +10,15 @@ package hackathon.emirates.cheaproute;
  ],
  */
 public class TripadvisorAttractionType {
-    private String localized_name;
-    private String name;
+    public String localized_name;
+    public String name;
 
     public TripadvisorAttractionType(String localized_name, String name) {
         this.localized_name = localized_name;
         this.name = name;
+    }
+
+    public TripadvisorAttractionType() {
     }
 
     public String getLocalized_name() {

@@ -8,8 +8,11 @@ package hackathon.emirates.cheaproute;
  },
  */
 public class TripadvisorImages {
-    private String small;
-    private String large;
+    public String small;
+    public String large;
+
+    public TripadvisorImages() {
+    }
 
     public String getSmall() {
         return small;
