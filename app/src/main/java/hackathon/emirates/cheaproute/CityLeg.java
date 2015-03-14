@@ -22,7 +22,10 @@ public class CityLeg {
     private int duration;
     private float latitude;
     private float longitude;
-    private TripadvisorPlace tripadvisorPlace;
+    private TripadvisorPlace[] tripadvisorHotels;
+    private TripadvisorPlace[] tripadvisorRestaurants;
+    private TripadvisorPlace[] tripadvisorAttractions;
+    private TripadvisorPlace[] tripadvisorGeos;
     private String skyscannerId;
     private String tripadvisorId;
 
@@ -76,18 +79,53 @@ public class CityLeg {
         }
     }
 
-    private class TripadvisorLocationAPI extends AsyncTask<Float, Void, TripadvisorPlace> {
+    private class TripadvisorLocationAPI extends AsyncTask<Float, Void, Boolean> {
 
         @Override
-        protected TripadvisorPlace doInBackground(Float... params) {
+        protected Boolean doInBackground(Float... params) {
+            String url = String.format("http://api.tripadvisor.com/api/partner/2.0/map/" +
+                                        "%f," + // latitude
+                                        "%f" + // longitude
+                                        "/%s" + // type:attractions/hotels/restaurants
+                                        "?key=%s",
+                                        latitude,
+                                        longitude,
+                                        "%s", // For type later
+                                        AppSettings.Tripadvisor_Key);
 
+            System.out.println(url);
 
-            return null;
-        }
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
-        @Override
-        protected  void onPostExecute(TripadvisorPlace place) {
+            try {
+                TripadvisorResponse response;
 
+                // Attractions
+                String urlAttraction = String.format(url, "attractions");
+                response = mapper.readValue(new URL(urlAttraction), TripadvisorResponse.class);
+                tripadvisorAttractions = response.getData();
+
+                // Hotels
+                String urlHotel = String.format(url, "hotels");
+                response = mapper.readValue(new URL(urlHotel), TripadvisorResponse.class);
+                tripadvisorHotels = response.getData();
+
+                // Restaurants
+                String urlRestaurant = String.format(url, "restaurants");
+                response = mapper.readValue(new URL(urlRestaurant), TripadvisorResponse.class);
+                tripadvisorRestaurants = response.getData();
+
+                // Geos
+                String urlGeo = String.format(url, "geos");
+                response = mapper.readValue(new URL(urlGeo), TripadvisorResponse.class);
+                tripadvisorGeos = response.getData();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return true;
         }
     }
 }
