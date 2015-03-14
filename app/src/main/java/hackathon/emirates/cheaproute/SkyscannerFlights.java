@@ -5,6 +5,7 @@ package hackathon.emirates.cheaproute;
  */
 
 public class SkyscannerFlights {
+    private String SessionKey;
     private String Status;
     private SkyscannerIntinerary[] Intineraries;
 
