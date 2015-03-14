@@ -11,11 +11,11 @@ package hackathon.emirates.cheaproute;
  }
  */
 public class TripadvisorRankingDetail {
-    private String geo_location_id;
-    private String ranking_string;
-    private String geo_location_name;
-    private String ranking_out_of;
-    private String ranking;
+    public String geo_location_id;
+    public String ranking_string;
+    public String geo_location_name;
+    public String ranking_out_of;
+    public String ranking;
 
     public TripadvisorRankingDetail(String geo_location_id, String ranking_string, String geo_location_name, String ranking_out_of, String ranking) {
         this.geo_location_id = geo_location_id;
@@ -23,6 +23,9 @@ public class TripadvisorRankingDetail {
         this.geo_location_name = geo_location_name;
         this.ranking_out_of = ranking_out_of;
         this.ranking = ranking;
+    }
+
+    public TripadvisorRankingDetail() {
     }
 
     public String getGeo_location_id() {

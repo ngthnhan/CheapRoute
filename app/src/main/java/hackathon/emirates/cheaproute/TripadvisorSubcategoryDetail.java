@@ -8,4 +8,7 @@ public class TripadvisorSubcategoryDetail extends TripadvisorCategoryDetail{
     public TripadvisorSubcategoryDetail(String name, String localized_string) {
         super(name, localized_string);
     }
+
+    public TripadvisorSubcategoryDetail() {
+    }
 }

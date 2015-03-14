@@ -14,9 +14,12 @@ package hackathon.emirates.cheaproute;
  }
  */
 public class TripadvisorAwardDetail {
-    private String award_type;
-    private String year;
-    private String display_name;
+    public String award_type;
+    public String year;
+    public String display_name;
+
+    public TripadvisorAwardDetail() {
+    }
 
     public String getAward_type() {
         return award_type;

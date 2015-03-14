@@ -16,22 +16,15 @@ package hackathon.emirates.cheaproute;
  }
  */
 public class TripadvisorAddressDetail {
-    private String street1;
-    private String street2;
-    private String city;
-    private String state;
-    private String country;
-    private String postalcode;
-    private String address_string;
+    public String street1;
+    public String street2;
+    public String city;
+    public String state;
+    public String country;
+    public String postalcode;
+    public String address_string;
 
-    public TripadvisorAddressDetail(String street1, String street2, String city, String state, String country, String postalcode, String address_string) {
-        this.street1 = street1;
-        this.street2 = street2;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.postalcode = postalcode;
-        this.address_string = address_string;
+    public TripadvisorAddressDetail() {
     }
 
     public String getStreet1() {

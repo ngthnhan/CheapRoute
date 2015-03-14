@@ -13,11 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
@@ -28,16 +33,16 @@ import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
-    private static final String API_KEY = "ah808014181908229612229724880308";
-    private static final String ROOT_URL = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0";
-    private static final String Currency = "GBP";
-    private static final String Country = "GB";
-    private static final String Locale = "en-GB";
-    private static final Integer Adult = 1;
-    private static final String OriginPlace = "11235";
-    private static final String DestinationPlace = "13554";
-    private static final String OutboundDate = "2015-03-21";
-    private static final String InboundDate = "2015-03-28";
+    public static final String API_KEY = "ah808014181908229612229724880308";
+    public static final String ROOT_URL = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0?";
+    public static final String Currency = "GBP";
+    public static final String Country = "GB";
+    public static final String Locale = "en-GB";
+    public static final Integer Adult = 1;
+    public static final String OriginPlace = "11235";
+    public static final String DestinationPlace = "13554";
+    public static final String OutboundDate = "2015-03-21";
+    public static final String InboundDate = "2015-03-28";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +84,49 @@ public class MainActivity extends ActionBarActivity {
 
         // Now call the API
 
-        //new CallAPI_2().execute();
+        new CallAPI_2().execute();
     }
 
-    private class CallAPI_1 extends AsyncTask<String, Void, String> {
+    public class CallAPI_2 extends AsyncTask<Void, Void, String> {
+        public final String URL_ROOT = "http://api.tripadvisor.com/api/partner/2.0/location/60745/hotels?key=";
+        public final String KEY = "SingaporeHack-CDCCADCA7505";
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String urlString = URL_ROOT + KEY;
+            String toDisplay = "NIL";
+            try {
+                URL url = new URL(urlString);
+
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                TripadvisorResponse response = mapper.readValue(url, TripadvisorResponse.class);
+
+                TripadvisorPlace place = response.getData()[0];
+                toDisplay = place.getName();
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                e.printStackTrace();
+            } catch (JsonParseException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return toDisplay;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            TextView resultView = (TextView) findViewById(R.id.responseText);
+            resultView.setText(result);
+        }
+    }
+    public class CallAPI_1 extends AsyncTask<String, Void, String> {
 
 
 
@@ -101,11 +145,18 @@ public class MainActivity extends ActionBarActivity {
             queryParams.add(new BasicNameValuePair("adults", Adult.toString()));
 
             String urlString = ROOT_URL + URLEncodedUtils.format(queryParams, "UTF-8");
+            DefaultHttpClient httpclient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(urlString);
+
+            httpPost.addHeader("Content-Type" , "application/x-www-form-urlencoded");
+            httpPost.addHeader("Accept" , "application/json");
+
             try {
                 URL url = new URL(urlString);
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
                 SkyscannerFlights response = mapper.readValue(url, SkyscannerFlights.class);
 
                 switch (response.getStatus()) {

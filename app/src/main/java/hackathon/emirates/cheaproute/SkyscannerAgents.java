@@ -4,11 +4,11 @@ package hackathon.emirates.cheaproute;
  * Created by ManhTu on 3/14/2015.
  */
 public class SkyscannerAgents {
-    private Integer Id;
-    private String Name;
-    private String ImageUrl;
-    private String Status;
-    private Boolean OptimisedForMobile;
-    private String Type;
+    public Integer Id;
+    public String Name;
+    public String ImageUrl;
+    public String Status;
+    public Boolean OptimisedForMobile;
+    public String Type;
 
 }
