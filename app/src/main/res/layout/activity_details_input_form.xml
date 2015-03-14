@@ -49,36 +49,63 @@
             android:layout_height="wrap_content"
             android:text="@string/choose_city_days"/>
 
-        <Spinner
-            android:id="@+id/city1"
+
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:id="@+id/city1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:completionThreshold="2" />
+
         <Spinner
             android:id="@+id/days1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
-        <Spinner
-            android:id="@+id/city2"
+
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:id="@+id/city2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:completionThreshold="2" />
+
         <Spinner
             android:id="@+id/days2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
-        <Spinner
-            android:id="@+id/city3"
+
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:id="@+id/city3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:completionThreshold="2" />
+
         <Spinner
             android:id="@+id/days3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/city4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:completionThreshold="2" />
+
+        <Spinner
+            android:id="@+id/days4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
