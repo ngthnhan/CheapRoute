@@ -9,29 +9,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Skyscanner"
-        android:id="@+id/button"
+        android:id="@+id/skyscannerButton"
         android:layout_marginTop="51dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="callAPI_2" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/responseText"
         android:onClick="callAPI_1"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:layout_alignLeft="@+id/skyscannerButton"
+        android:layout_alignStart="@+id/skyscannerButton"
         android:layout_marginBottom="169dp"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignRight="@+id/skyscannerButton"
+        android:layout_alignEnd="@+id/skyscannerButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TripAdviser"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button"
+        android:id="@+id/tripadviserButton"
+        android:layout_below="@+id/skyscannerButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:layout_marginTop="68dp"
+        android:onClick="callAPI_1" />
 </RelativeLayout>

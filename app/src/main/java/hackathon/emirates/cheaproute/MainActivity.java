@@ -75,6 +75,13 @@ public class MainActivity extends ActionBarActivity {
         new CallAPI_1().execute();
     }
 
+    public void callAPI_2(View view) {
+
+        // Now call the API
+
+        //new CallAPI_2().execute();
+    }
+
     private class CallAPI_1 extends AsyncTask<String, Void, String> {
 
 
@@ -103,7 +110,7 @@ public class MainActivity extends ActionBarActivity {
 
                 switch (response.getStatus()) {
                     case "OK":
-                        resultToDisplay = location.displayResult();
+                        System.out.println("Status is okay" + response.getStatus());
                         break;
                     default:
                         System.out.println("Status is not okay" + response.getStatus());
@@ -119,7 +126,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            TextView resultView = (TextView) findViewById(R.id.resultStr);
+            TextView resultView = (TextView) findViewById(R.id.responseText);
             resultView.setText(result);
         }
     }
