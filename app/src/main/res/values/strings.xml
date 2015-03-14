@@ -8,6 +8,11 @@
     <string name="welcome">Get the cheapest route to your destination</string>
     <string name="title_activity_details_input_form">DetailsInputForm</string>
     <string name="startDate">Start Date</string>
+    <string name="choose_city_days">Choose cities and the corresponding number of staying days</string>
+    <string name="start_day_text">Start day</string>
+    <string name="end_day_text">End day</string>
+    <string name="proceed_btn_text">Proceed</string>
     <string name="title_activity_city_picking">CityPicking</string>
+>>>>>>> 5915c746b82cd60e5da09b2f30468742c438dfab
 
 </resources>
